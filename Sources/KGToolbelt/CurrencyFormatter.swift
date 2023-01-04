@@ -9,7 +9,7 @@ import Foundation
 public extension Locale {
     
     /// Gets the current Locale's currency identifier code.
-    static let code: String = {
+    static public let code: String = {
         if #available(iOS 16, *) {
             return Locale.current.currency?.identifier ?? "USD"
         } else {
