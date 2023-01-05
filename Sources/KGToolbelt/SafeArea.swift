@@ -8,7 +8,7 @@ import SwiftUI
 
 public struct SafeArea {
     
-//    public init() {}
+    public init() {}
     
     public static var inset: UIEdgeInsets {
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return .zero }
