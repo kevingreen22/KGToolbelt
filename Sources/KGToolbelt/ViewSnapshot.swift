@@ -39,20 +39,20 @@ public extension View {
     }
     
     
-//    @MainActor func formatViewToString() -> NSAttributedString {
-//        // create our NSTextAttachment
-//        let image1Attachment = NSTextAttachment()
-//        if #available(iOS 16.0, *) {
-//            image1Attachment.image = self.renderSnapshot()
-//        } else {
-//            // Fallback on earlier versions
-//            image1Attachment.image = self.snapshot()
-//        }
-//
-//        // wrap the attachment in its own attributed string so we can append it
-//        let image1String = NSAttributedString(attachment: image1Attachment)
-//
-//        return image1String
-//    }
+    @MainActor func formatViewToString() -> NSAttributedString {
+        // create our NSTextAttachment
+        let image1Attachment = NSTextAttachment()
+        if #available(iOS 16.0, *) {
+            image1Attachment.image = self.snapshot()
+        } else {
+            // Fallback on earlier versions
+            image1Attachment.image = self.snapshot()
+        }
+
+        // wrap the attachment in its own attributed string so we can append it
+        let image1String = NSAttributedString(attachment: image1Attachment)
+
+        return image1String
+    }
     
 }
