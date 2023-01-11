@@ -39,11 +39,6 @@ public extension View {
     }
     
     
-    
-    
-    
-    
-    
     @MainActor func formatViewToString() -> NSAttributedString {
         // create our NSTextAttachment
         let image1Attachment = NSTextAttachment()
