@@ -24,7 +24,7 @@ public extension View {
     }
     
     @available(iOS 16.0, *)
-    @MainActor func renderSnapshot(_ completion: (UIImage)->()) -> any View {
+    @MainActor func renderSnapshot(_ completion: (UIImage)->()) -> some View {
         @Environment(\.displayScale) var displayScale
         let renderer = ImageRenderer(content: self)
         
