@@ -24,34 +24,35 @@ public extension View {
     }
     
     @available(iOS 16.0, *)
-    @MainActor func renderSnapshot() -> UIImage {
+    @MainActor func renderSnapshot(_ renderedImage: Binding<UIImage>) -> UIImage {
         @Environment(\.displayScale) var displayScale
-        var renderedImage = UIImage()
+        @State var renderedImage = renderedImage
         let renderer = ImageRenderer(content: self)
         
         // make sure and use the correct display scale for this device
         renderer.scale = displayScale
         
         if let uiImage = renderer.uiImage {
-            renderedImage = uiImage
+            renderedImage = State(initialValue: uiImage).projectedValue
         }
-        return renderedImage
+        return renderedImage.wrappedValue
     }
     
     
-    @MainActor func formatViewToString(for view: some View) -> NSAttributedString {
-        // create our NSTextAttachment
-        let image1Attachment = NSTextAttachment()
-        if #available(iOS 16.0, *) {
-            image1Attachment.image = view.renderSnapshot()
-        } else {
-            // Fallback on earlier versions
-            image1Attachment.image = view.snapshot()
-        }
-
-        // wrap the attachment in its own attributed string so we can append it
-        let image1String = NSAttributedString(attachment: image1Attachment)
-
-        return image1String
-    }
+//    @MainActor func formatViewToString() -> NSAttributedString {
+//        // create our NSTextAttachment
+//        let image1Attachment = NSTextAttachment()
+//        if #available(iOS 16.0, *) {
+//            image1Attachment.image = self.renderSnapshot()
+//        } else {
+//            // Fallback on earlier versions
+//            image1Attachment.image = self.snapshot()
+//        }
+//
+//        // wrap the attachment in its own attributed string so we can append it
+//        let image1String = NSAttributedString(attachment: image1Attachment)
+//
+//        return image1String
+//    }
+    
 }
