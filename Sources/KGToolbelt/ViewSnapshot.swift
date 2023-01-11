@@ -24,7 +24,7 @@ public extension View {
     }
     
     @available(iOS 16.0, *)
-    @MainActor func renderSnapshot(_ renderedImage: Binding<UIImage>) -> UIImage {
+    @MainActor func renderSnapshot(_ renderedImage: Binding<UIImage>) {
         @Environment(\.displayScale) var displayScale
         @State var renderedImage = renderedImage
         let renderer = ImageRenderer(content: self)
@@ -35,7 +35,6 @@ public extension View {
         if let uiImage = renderer.uiImage {
             renderedImage = State(initialValue: uiImage).projectedValue
         }
-        return renderedImage.wrappedValue
     }
     
     
