@@ -24,18 +24,24 @@ public extension View {
     }
     
     @available(iOS 16.0, *)
-    @MainActor func renderSnapshot(_ renderedImage: Binding<UIImage>) {
+    @MainActor func renderSnapshot(_ completion: (UIImage)->()) {
         @Environment(\.displayScale) var displayScale
-        @State var renderedImage = renderedImage
         let renderer = ImageRenderer(content: self)
         
         // make sure and use the correct display scale for this device
         renderer.scale = displayScale
         
         if let uiImage = renderer.uiImage {
-            renderedImage = State(initialValue: uiImage).projectedValue
+            completion(uiImage)
+        } else {
+            completion(UIImage())
         }
     }
+    
+    
+    
+    
+    
     
     
     @MainActor func formatViewToString() -> NSAttributedString {
