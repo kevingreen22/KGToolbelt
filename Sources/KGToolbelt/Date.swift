@@ -71,6 +71,22 @@ public extension Date {
         return date
     }
     
+    /// Shows the elapsed time of the date called on.
+    var elapsedTimeStamp: String {
+        let today = Date()
+        let formatter = DateFormatter()
+        let calendar = formatter.calendar
+        let days = calendar?.dateComponents([.day], from: self, to: today)
+        let hours = calendar?.dateComponents([.hour], from: self, to: today)
+        let minutes = calendar?.dateComponents([.minute], from: self, to: today)
+        let seconds = calendar?.dateComponents([.second], from: self, to: today)
+        let dateComp = DateComponents(day: days?.day, hour: hours?.hour, minute: minutes?.minute, second: seconds?.second)
+        guard let elapsed = calendar?.date(from: dateComp) else { return "???" }
+        formatter.timeStyle = .short
+        let dateString = formatter.string(from: self)
+        return dateString
+    }
+    
 }
 
 
