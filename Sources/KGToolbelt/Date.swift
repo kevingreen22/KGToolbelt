@@ -73,3 +73,52 @@ public extension Date {
     
 }
 
+
+public extension String {
+    
+    enum KGDateFormatType: String {
+        case MM_dd_yy = "MM/dd/yy"
+    }
+    
+    /// Converts a date-0string  to a date object.
+    /// - Parameter str: The string of format (MM/dd/yy) to convert.
+    /// - Returns: A date object or nil.
+    func convertToDate(format: KGDateFormatType) -> Date? {
+        let dateFormat = self //"2016-04-14T10:44:00+0000"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current // Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = format.rawValue
+        
+        guard let date = dateFormatter.date(from: dateFormat) else { return nil }
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        let finalDate = calendar.date(from: components)
+        return finalDate
+    }
+    
+}
+
+
+
+public extension DateInterval {
+    
+    /// Formats a DateInterval object to just a standard american format with no time.
+    /// - Returns: A string representation of the dateInterval formated.
+    var americanDateIntervalFormatter: String {
+        let formatter = DateIntervalFormatter()
+        formatter.locale = Locale.current
+        
+        // Configure Date Interval Formatter
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        
+        // String From Date Interval
+        guard let str = formatter.string(from: self) else { return "???" }
+        
+        return str
+    }
+    
+}
