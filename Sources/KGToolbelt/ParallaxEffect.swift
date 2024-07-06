@@ -13,6 +13,7 @@ public extension View {
         self.offset(y: proxy.frame(in: .global).minY/value)
     }
     
+    /// Creates a parallax floating effect.
     func parallax(value: CGFloat = 9) -> some View {
         GeometryReader { proxy in
             self.offset(y: proxy.frame(in: .global).minY/value)

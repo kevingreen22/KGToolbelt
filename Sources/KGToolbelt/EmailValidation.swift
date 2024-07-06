@@ -1,6 +1,6 @@
 //
-//  Email.swift
-//  
+//  EmailValidation.swift.swift
+//
 //  Created by Kevin Green on 12/31/22.
 //
 
