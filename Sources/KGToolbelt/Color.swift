@@ -14,6 +14,7 @@ import AppKit
 
 
 public extension Color {
+    /// Creates a random color of type: Color with optional random opacity.
     static func random(randomOpacity: Bool = false) -> Color {
         Color(
             red: .random(in: 0...1),
@@ -54,6 +55,7 @@ fileprivate extension Color {
 }
 
 @available(iOS 14.0, *)
+/// Conforms Color to Decodable
 extension Color: Codable {
     enum CodingKeys: String, CodingKey {
         case red, green, blue
