@@ -42,7 +42,6 @@ public extension UIColor {
         self.init(red: r, green: g, blue: b, alpha: a)
     }
 
-
     var toHex: String? {
         // Extract Components
         guard let components = cgColor.components, components.count >= 3 else {

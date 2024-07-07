@@ -33,14 +33,14 @@ public extension UIImage {
     
 }
 
-extension String {
+public extension String {
     
     /// Converts a data string to a UIImage.
     /// - Parameters:
     ///   - encoding: The type of encoding to use when converting the string to data. Defaults to .utf8
     ///   - allowsLossyConversion: Whether or not to allow lossless conversion. Defaults to false.
     /// - Returns: A UIImage object or nil if the string can not be converted.
-    public func toUIImage(_ encoding: String.Encoding = .utf8, _ allowsLossyConversion: Bool = false) -> UIImage? {
+    func toUIImage(_ encoding: String.Encoding = .utf8, _ allowsLossyConversion: Bool = false) -> UIImage? {
         guard let imageData = self.data(using: encoding, allowLossyConversion: allowsLossyConversion) else { return nil }
         return UIImage(data: imageData)
     }
