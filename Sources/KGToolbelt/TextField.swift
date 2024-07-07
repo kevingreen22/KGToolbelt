@@ -7,7 +7,7 @@
 import SwiftUI
 import Combine
 
-extension View {
+public extension View {
     
     /// Keeps text length to a limited number of characters.
     func limitCharacterLength(limit: Int, text: Binding<String>) -> some View {
