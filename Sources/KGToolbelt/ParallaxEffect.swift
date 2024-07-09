@@ -1,7 +1,6 @@
 //
 //  ParallaxEffect.swift
 //
-//  Created by Kevin Green on 10/13/22.
 //
 
 import SwiftUI
