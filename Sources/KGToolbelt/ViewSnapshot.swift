@@ -8,6 +8,7 @@ import SwiftUI
 
 public extension View {
     
+    /// Creates a screen shot of the view this is called on. Not the entire screen.
     func snapshot() -> UIImage {
         let controller = UIHostingController(rootView: self)
         let view = controller.view
@@ -24,6 +25,7 @@ public extension View {
     }
     
     @available(iOS 16.0, *)
+    /// Creates a screen shot of the view this is called on. Not the entire screen.
     @MainActor func renderSnapshot(_ completion: (UIImage)->()) -> some View {
         @Environment(\.displayScale) var displayScale
         let renderer = ImageRenderer(content: self)
@@ -39,7 +41,7 @@ public extension View {
         return self
     }
     
-    
+    /// Creates a string from a view. Similar to how an emoji is text.
     @MainActor func formatViewToString() -> NSAttributedString {
         // create our NSTextAttachment
         let image1Attachment = NSTextAttachment()

@@ -7,11 +7,18 @@
 import SwiftUI
 
 public extension View {
+    /// The standard UIKit way of dismissing the keyboard.
+    func dismissKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
+@available(iOS 15.0, *)
+public extension View {
     
     /// Adds a done button to the top trailing edge of the keyboard for dismissal. Ideal for phone pad, number pad, or other keyboards without a return/submit key.
     /// - Parameter isFocused: A focusState binding to toggle.
     /// - Parameter action: An optional closure to perform after the button is tapped. Note: the button tap automatically toggles the FocusState binding.
-    @available(iOS 15.0, *)
     func keyboardDoneButton(isFocused: FocusState<Bool>.Binding, action: (()->())? = nil) -> some View {
         self
             .toolbar {
@@ -28,7 +35,6 @@ public extension View {
     
     
     /// Dismisses the keyboard when the user taps on the screen outside of the keyboard.
-    @available(iOS 15.0, *)
     func dismissKeyboardOnTap(_ isFocused: FocusState<Bool>.Binding) -> some View {
         self
             .onTapGesture {
@@ -37,7 +43,6 @@ public extension View {
     }
     
     /// Dismisses the keyboard when the user taps on the screen outside of the keyboard.
-    @available(iOS 15.0, *)
     func dismissKeyboardOnTap<T: Hashable>(_ focusedField: FocusState<T?>.Binding) -> some View {
         self
             .onTapGesture {
@@ -47,7 +52,6 @@ public extension View {
     
     
     /// Dismisses the keyboard when the user taps on the screen outside of the keyboard.
-    @available(iOS 15.0, *)
     func dismissKeyboardOnTap(isFocused: FocusState<Bool>.Binding) -> some View {
         return self
             .onTapGesture {
@@ -55,8 +59,7 @@ public extension View {
             }
     }
     
-    func dismissKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
 }
+
+
 

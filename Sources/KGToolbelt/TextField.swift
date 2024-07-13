@@ -7,7 +7,7 @@
 import SwiftUI
 import Combine
 
-public extension View {
+public extension TextField {
     
     /// Keeps text length to a limited number of characters.
     func limitCharacterLength(limit: Int, text: Binding<String>) -> some View {
@@ -20,7 +20,7 @@ public extension View {
     }
     
     /// Keeps text length to a limited number of characters.
-    func limitIntLength(limit: Int, value: Binding<Int>) -> some View {
+    func limitCharacterLength(limit: Int, value: Binding<Int>) -> some View {
         self
             .onReceive(Just(value), perform: { _ in
                 let count = String(value.wrappedValue).count
@@ -34,11 +34,9 @@ public extension View {
     
     /// Selects the text when this view is focused. An optional closure is available.
     func selectAllTextOnBeginEditing(_ action: (()->())? = nil) -> some View {
-        modifier(SelectAllTextOnBeginEditingModifier(action: { action?() }))
+        self.modifier(SelectAllTextOnBeginEditingModifier(action: { action?() }))
     }
 }
-
-
 
 
 private struct SelectAllTextOnBeginEditingModifier: ViewModifier {
@@ -55,3 +53,4 @@ private struct SelectAllTextOnBeginEditingModifier: ViewModifier {
                 }
         }
 }
+

@@ -1,5 +1,5 @@
 //
-//  DeviceRotation.swift
+//  DeviceRotationOrientation.swift
 //
 //  Created by Kevin Green on 9/2/22.
 //
@@ -7,13 +7,14 @@
 
 import SwiftUI
 
+// MARK: Rotation
 /// Custom view modifier to track rotation and call an action.
 ///
 /// Important: As of September 3rd, 2021 (Xcode 14.0 beta 1) view modifiers do not work with onReceive() unless you first add onAppear(). Yes, it’s empty, but it acts as a workaround for the problem.
 ///
 /// Example:
 ///
-/// ```
+/// ```swift
 /// struct ContentView: View {
 ///     @State private var orientation = UIDeviceOrientation.unknown
 ///     var body: some View {
@@ -28,7 +29,6 @@ import SwiftUI
 ///                 Text("Unknown")
 ///             }
 ///         }
-///         
 ///         .onRotate { newOrientation in
 ///             orientation = newOrientation
 ///         }
@@ -52,30 +52,20 @@ public struct DeviceRotationViewModifier: ViewModifier {
     }
 }
 
-
 public extension View {
     
     var currentOrientation: UIDeviceOrientation {
         return UIDevice.current.orientation
     }
     
-    /// Respond to and perform action when the device orientation changes.
+    /// Respond to and perform an action when the device orientation changes.
     func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
         self.modifier(DeviceRotationViewModifier(action: action))
     }
 }
 
 
-
-
-//
-//  ForceOrientation.swift
-//
-//  Created by Kevin Green on 12/12/23.
-//
-
-import SwiftUI
-
+// MARK: Orientation
 public extension View {
     
     /// Forces the view to rotate to the spcecified orientation.
@@ -161,3 +151,4 @@ public class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
 }
+

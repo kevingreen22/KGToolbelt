@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PhoneNumbers.swift
 //  
 //  Created by Kevin Green on 12/31/22.
 //
@@ -8,7 +8,7 @@ import Foundation
 
 public extension String {
     
-    /// Formats, in-place, a 10 digit phone number string to automatically insert area code parentheses "(xxx)" and dash "-" between the exchange and subscriber number groups.
+    /// Formats, in-place, a 10 digit phone number(US phone numbers only) string to automatically insert area code parentheses "(xxx)" and dash "-" between the exchange and subscriber number groups.
     mutating func phoneNumberFormated() {
         self = self.replacingOccurrences(of: "(", with: "")
             .replacingOccurrences(of: ")", with: "")
@@ -32,7 +32,8 @@ public extension String {
     }
     
     
-    /// Formats a 10 digit phone number string to automatically insert area code parentheses "(xxx)" and dash "-" between the exchange and subscriber number groups, returning a new string.
+    /// Formats a 10 digit phone number string to automatically insert area code parentheses "(xxx)" and dash "-" between the exchange and subscriber number groups.
+    /// - return: A new string.
     mutating func phoneNumberFormated() -> String {
         self = self.replacingOccurrences(of: "(", with: "")
             .replacingOccurrences(of: ")", with: "")
@@ -55,8 +56,6 @@ public extension String {
         }
         return self
     }
-    
-    
     
     
     /// Validates a phone number.
@@ -125,7 +124,5 @@ public extension String {
         return  phonePredicate.evaluate(with: phone)
     }
     
-    
-    
-    
 }
+

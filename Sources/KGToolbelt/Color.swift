@@ -1,7 +1,6 @@
 //
 //  Color.swift
 //
-//  Created by Kevin Green on 10/19/23.
 //
 
 #if os(iOS)
@@ -14,14 +13,45 @@ import AppKit
 
 
 public extension Color {
+    
     /// Creates a random color of type: Color with optional random opacity.
     static func random(randomOpacity: Bool = false) -> Color {
         Color(
             red: .random(in: 0...1),
             green: .random(in: 0...1),
             blue: .random(in: 0...1),
-            opacity: randomOpacity ? .random(in: 0...1) : 1
+            opacity: randomOpacity ? .random(in: 0.1...1) : 1
         )
+    }
+}
+
+@available(iOS 14.0, *)
+extension Color: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case red, green, blue
+    }
+    
+    /// Conforms Color to Decodable
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let r = try container.decode(Double.self, forKey: .red)
+        let g = try container.decode(Double.self, forKey: .green)
+        let b = try container.decode(Double.self, forKey: .blue)
+        
+        self.init(red: r, green: g, blue: b)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        guard let colorComponents = self.colorComponents else {
+            return
+        }
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(colorComponents.red, forKey: .red)
+        try container.encode(colorComponents.green, forKey: .green)
+        try container.encode(colorComponents.blue, forKey: .blue)
     }
 }
 
@@ -53,33 +83,3 @@ fileprivate extension Color {
         return (r, g, b, a)
     }
 }
-
-@available(iOS 14.0, *)
-/// Conforms Color to Decodable
-extension Color: Codable {
-    enum CodingKeys: String, CodingKey {
-        case red, green, blue
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let r = try container.decode(Double.self, forKey: .red)
-        let g = try container.decode(Double.self, forKey: .green)
-        let b = try container.decode(Double.self, forKey: .blue)
-        
-        self.init(red: r, green: g, blue: b)
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        guard let colorComponents = self.colorComponents else {
-            return
-        }
-        
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        try container.encode(colorComponents.red, forKey: .red)
-        try container.encode(colorComponents.green, forKey: .green)
-        try container.encode(colorComponents.blue, forKey: .blue)
-    }
-}
-
