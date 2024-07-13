@@ -149,7 +149,6 @@ public extension String {
 }
 
 
-
 public extension DateInterval {
     
     /// Formats a DateInterval object to just a standard american format with no time.

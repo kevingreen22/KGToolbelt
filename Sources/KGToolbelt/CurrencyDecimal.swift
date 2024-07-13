@@ -1,15 +1,16 @@
 //
-//  Currency_Decimal.swift
+//  CurrencyDecimal.swift
 //
 //  Created by Kevin Green on 11/25/22.
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: Locale Extension
 public extension Locale {
     
-    /// Gets the current Locale's currency identifier code.
+    /// Returns the current Locale's currency identifier code.
     static let code: String = {
         if #available(iOS 16, *) {
             return Locale.current.currency?.identifier ?? "USD"
@@ -18,6 +19,23 @@ public extension Locale {
             return Locale.current.currencyCode ?? "USD"
         }
     }()
+    
+}
+
+
+
+public enum TypeOfFormat {
+    case numerical
+    case currency
+    case percentage
+}
+
+public enum DecimalPlace: Int {
+    case ones = 1
+    case tens = 10
+    case hundreds = 100
+    case thousands = 1000
+    case tenThousands = 10000
 }
 
 
@@ -25,18 +43,12 @@ public extension Locale {
 // MARK: String Extension
 public extension String {
     
-    enum TypeOfFormat {
-        case currency
-        case percentage
-    }
-    
     /// Converts a number-string to a Float.
     /// - Parameters:
     ///   - format: A TypeOfFormat to convert to.
     /// - Returns: A Float or nil.
     mutating func convertToFloat(format: TypeOfFormat) -> Float? {
-        if self.first == "$" { self = String(self.dropFirst()) }
-        if self.last == "%" { self = String(self.dropLast()) }
+        if let first = self.first, !first.isNumber { self = String(self.dropFirst()) }
         guard let strAsFloat = Float(self) else { return nil }
         var formattedStr = ""
         switch format {
@@ -44,6 +56,8 @@ public extension String {
             formattedStr = String(format: "%.2f", strAsFloat)
         case .percentage:
             formattedStr = String(format: "%.1f", strAsFloat)
+        case .numerical:
+            formattedStr = String(format: "%f", strAsFloat)
         }
         
         if let number = Float(formattedStr) {
@@ -52,15 +66,6 @@ public extension String {
         return nil
     }
     
-}
-
-
-public enum DecimalPlace: Int {
-    case ones = 1
-    case tens = 10
-    case hundreds = 100
-    case thousands = 1000
-    case tenThousands = 10000
 }
 
 
@@ -99,18 +104,13 @@ public extension Float {
         return Float(numStr!)!
     }
     
-    
 }
 
 
 // MARK: Double Extension
 public extension Double {
     
-    enum TypeOfFormat {
-        case numerical
-        case currency
-        case percentage
-    }
+    
    
     func formated(type: TypeOfFormat) -> String {
         let formatter = NumberFormatter()
@@ -132,7 +132,6 @@ public extension Double {
         
         return formatter.string(from: NSNumber(value: self / 0.1)) ?? "??"
     }
-    
     
     func asDecimal(by place: DecimalPlace) -> Double {
         return self / Double(place.rawValue)
@@ -187,3 +186,4 @@ public extension CGFloat {
         return decimal
     }
 }
+

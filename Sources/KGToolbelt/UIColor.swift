@@ -1,9 +1,7 @@
 //
 //  UIColor.swift
 //
-//
-//  Created by Kevin Green on 6/7/24.
-//
+// https://www.hackingwithswift.com/example-code/uicolor/how-to-convert-a-hex-color-to-a-uicolor
 
 import UIKit
 
